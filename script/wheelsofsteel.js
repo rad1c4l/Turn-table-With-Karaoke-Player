@@ -739,6 +739,8 @@
    utils.removeClass( self.dom.waveformBox, 'loaded' );
   };
   this.loadWaveform = function ( trackName, soundcloudID, soundcloudURL ) {
+    if(soundcloudURL === undefined)
+      return;
    var fgcolor = '336699', // color to draw the waveform with
     defaultWidth = 500,
     defaultHeight = 48,
