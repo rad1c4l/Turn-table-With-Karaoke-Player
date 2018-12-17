@@ -1670,35 +1670,32 @@
    self.startTimer();
   };
   this.playVideo = function () {
+    console.log('Playing Video');
    self.syncVideo();
    self.dom.cdgPlayer.play();
   }
   this.syncVideo = function () {
-   self.dom.cdgPlayer.load( new Uint8Array( bf.bfr ) )
+   self.dom.cdgPlayer.load( new Uint8Array( self.data.cdgBuffer ) )
    self.dom.cdgPlayer.sync( self.data.sound.soundObject.position ) // convert to ms
   }
   this.stopVideo = function () {
+    console.log('Stopping Video');
    self.dom.cdgPlayer.stop();
   }
   this.dom.playbtn.addEventListener( 'click', function () {
-   console.log( "Play BUtton Clicked" );
-   // Hnadle Modal
-   // reset modal if it isn't visible
-   if ( !( $( '.modal.in' ).length ) ) {
-    $( '.modal-dialog' ).css( {
-     top: 0,
-     left: function () { //Horizontal centering
-      return ( $( this ).width() / 2 );
-     }
-    } );
+
+   console.log( "Play Button Clicked "+ self.id.substr( self.id - 1 ) );
+   // 
+   if(self.dom.canvas !== null){
+    self.dom.canvas.id=self.id.substr( self.id.length - 1 );
+    document.getElementById('cdg-app').appendChild(self.dom.canvas);
+    self.playVideo();
    }
    $( '#myModal' ).modal( {
     backdrop: false,
     show: true
    } );
-   $( '.modal-dialog' ).draggable( {
-    handle: ".modal-header"
-   } );
+   
   }, false );
   if ( !isTouchDevice ) {
    utils.events.add( self.dom.tonearmImage, 'mousedown', self.tonearmMouseDown );

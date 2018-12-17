@@ -601,7 +601,7 @@
             </a>
            </li>
            <li class="list-group-item">
-            <a href="karaoke" id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" name="karaoke" oncontextmenu="return false">
+            <a id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" name="karaoke" oncontextmenu="return false">
              <span class="artist">
               Ill.Gates -
              </span>
@@ -613,7 +613,7 @@
          <div class="col-md-6 col-lg-6">
           <ul class="list-group" id="2">
            <li class="list-group-item">
-            <a href="karaoke" id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" oncontextmenu="return false">
+            <a id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" name="karaoke" oncontextmenu="return false">
              <span class="artist">
               Ill.Gates -
              </span>
@@ -651,13 +651,6 @@
      Show video
     </button>
     <!-- <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script> -->
-    <script type="text/javascript">
-     if (document.domain.match(/wheelsofsteel\.net/i)) {
-        try {
-          reinvigorate.track("860j9-p08a8ujx40");
-        } catch (err) { }
-      }
-    </script>
     <script src="script/cdgPlayer.js">
     </script>
     <script src="script/cdg_custom.js">
@@ -671,6 +664,36 @@
     <script src="script/bootstrap.min.js">
     </script>
     <script src="script/jquery-ui.min.js">
+    </script>
+    <script type="text/javascript">
+     function modalShown() {
+      return (document.getElementById('myModal').style.display == "none") ? false : true;
+     }
+
+    $('#myModal').on('hidden.bs.modal', function () {
+      let cApp = document.getElementById('cdg-app');
+      if(cApp.children[0] !== undefined && (cApp.children[0].id === "1" || cApp.children[0].id === "0")){
+        let t = parseInt(document.getElementById('cdg-app').children[0].id)-1;
+        wheelsofsteel.turntables[t].stopVideo();
+        while(cApp.firstChild){
+          cApp.removeChild(cApp.firstChild);
+        }
+      }
+    });
+    // Hnadle Modal
+   // reset modal if it isn't visible
+   if ( !( $( '.modal.in' ).length ) ) {
+    $( '.modal-dialog' ).css( {
+     top: 0,
+     left: function () { //Horizontal centering
+      return ( $( this ).width() / 2 );
+     }
+    } );
+   }
+   
+   $( '.modal-dialog' ).draggable( {
+    handle: ".modal-header"
+   } );
     </script>
     <script>
      /*$('#vid-1').click(function () {
