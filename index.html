@@ -15,7 +15,9 @@
   <link href="http://wheelsofsteel.net/wheels_of_steel_ui_screenshot.png" rel="image_src"/>
   <link href="css/bootstrap.css" media="screen" rel="stylesheet"/>
   <link href="css/wheelsofsteel.css" media="screen" rel="stylesheet"/>
-  <link href="css/custom.css" media="screen" rel="stylesheet"/>
+  <link href="css/custom.css" rel="stylesheet"/>
+  <script src="script/cdg_custom.js">
+    </script>
  </head>
  <body>
   <!-- hide non-js fallback open state for #moreinfo, etc. -->
@@ -548,8 +550,8 @@
          Play Video
         </button>
        </div>
-       <div class="col-md-6 col-lg-6" id="vid-2">
-        <button class="btn btn-block btn-alert">
+       <div "="" class="col-md-6 col-lg-6">
+        <button class="btn btn-block btn-alert" id="vid-2">
          Play Video
         </button>
        </div>
@@ -577,47 +579,34 @@
          <div class="col-md-6 col-lg-6">
           <ul class="list-group" id="1">
            <li class="list-group-item">
-            <a href="song" id="abc" oncontextmenu="return false">
-             <span class="artist">
-              Ill.Gates -
-             </span>
-             Scratchdisc
-            </a>
-           </li>
-           <li class="list-group-item">
-            <a href="song" id="def" oncontextmenu="return false">
-             <span class="artist">
-              Ill.Gates -
-             </span>
-             Scratchdisc
-            </a>
-           </li>
-           <li class="list-group-item">
             <a href="song" id="ghi" oncontextmenu="return false">
+             <i class="glyphicon glyphicon-music"></i>&nbsp;
              <span class="artist">
-              Ill.Gates -
+              CSGO -
              </span>
-             Scratchdisc
+             Random Sounds
             </a>
            </li>
            <li class="list-group-item">
             <a id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" name="karaoke" oncontextmenu="return false">
+              <i class="glyphicon glyphicon-ice-lolly"></i>&nbsp;
              <span class="artist">
-              Ill.Gates -
+              Mc Fernin -
              </span>
-             TEst
+             Don't Worry, Be Happy
             </a>
            </li>
           </ul>
          </div>
          <div class="col-md-6 col-lg-6">
           <ul class="list-group" id="2">
-           <li class="list-group-item">
+           <li class="list-group-item microphone">
             <a id="0007fe4dfc0ddd92002200be94470ee0e808cbcb" name="karaoke" oncontextmenu="return false">
+              <i class="glyphicon glyphicon-ice-lolly"></i>&nbsp;
              <span class="artist">
-              Ill.Gates -
+              Mc Fernin -
              </span>
-             Test
+             Don't Worry, Be Happy
             </a>
            </li>
           </ul>
@@ -629,17 +618,20 @@
      <div id="the-end">
      </div>
     </div>
-    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" style="display:none;" tabindex="-1">
+    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
      <div class="modal-dialog" role="document">
       <div class="modal-content">
        <div class="modal-header">
-        <button aria-label="Close" class="close" data-dismiss="modal">
+        <button aria-label="Close" class="close" data-dismiss="modal" onclick="closeModal()">
          <span aria-hidden="true">
           ×
          </span>
         </button>
         <h4 class="modal-title" id="myModalLabel">
          Sing Along
+         <button class="btn btn-primary" id="full-btn" style="display: inline-block;">
+          Full Screen
+         </button>
         </h4>
        </div>
        <div class="modal-body" id="cdg-app">
@@ -647,72 +639,50 @@
       </div>
      </div>
     </div>
-    <button id="btn1">
-     Show video
-    </button>
-    <!-- <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script> -->
     <script src="script/cdgPlayer.js">
     </script>
-    <script src="script/cdg_custom.js">
-    </script>
+    
     <script src="script/soundmanager2.js">
     </script>
-    <script src="script/wheelsofsteel.js">
-    </script>
     <script src="script/jquery-3.3.1.min.js">
+    </script>
+     <script src="script/screenfull.min.js">
     </script>
     <script src="script/bootstrap.min.js">
     </script>
     <script src="script/jquery-ui.min.js">
     </script>
-    <script type="text/javascript">
-     function modalShown() {
-      return (document.getElementById('myModal').style.display == "none") ? false : true;
-     }
-
-    $('#myModal').on('hidden.bs.modal', function () {
-      let cApp = document.getElementById('cdg-app');
-      if(cApp.children[0] !== undefined && (cApp.children[0].id === "1" || cApp.children[0].id === "0")){
-        let t = parseInt(document.getElementById('cdg-app').children[0].id)-1;
-        wheelsofsteel.turntables[t].stopVideo();
-        while(cApp.firstChild){
-          cApp.removeChild(cApp.firstChild);
-        }
-      }
-    });
-    // Hnadle Modal
-   // reset modal if it isn't visible
-   if ( !( $( '.modal.in' ).length ) ) {
-    $( '.modal-dialog' ).css( {
-     top: 0,
-     left: function () { //Horizontal centering
-      return ( $( this ).width() / 2 );
-     }
-    } );
-   }
-   
-   $( '.modal-dialog' ).draggable( {
-    handle: ".modal-header"
-   } );
+    
+    <script src="script/wheelsofsteel.js">
     </script>
     <script>
-     /*$('#vid-1').click(function () {
-            // reset modal if it isn't visible
-            if (!($('.modal.in').length)) {
-                $('.modal-dialog').css({
-                    top: 0,
-                    left: 0
-                });
-            }
-            $('#myModal').modal({
-                backdrop: false,
-                show: true
-            });
-
-            $('.modal-dialog').draggable({
-                handle: ".modal-header"
-            });
-        });*/
+      function closeModal() {
+       let cApp = document.getElementById('cdg-app');
+       wheelsofsteel.turntables[wheelsofsteel.video - 1].stopVideo();
+       wheelsofsteel.video = null;
+       while (cApp.firstChild) {
+        cApp.removeChild(cApp.firstChild);
+       }
+      };
+      document.getElementById('full-btn').addEventListener('click',function () {
+       if (screenfull.enabled) {
+        let canvas = document.getElementById('cdg-app').children[0];
+        screenfull.on('change', () => {
+         console.log('Am I fullscreen?', screenfull.isFullscreen ? 'Yes' : 'No');
+         if (screenfull.isFullscreen) {
+          $(canvas).attr('width', screen.width);
+          $(canvas).attr('height', ((screen.width * 72) / 100));
+          var ctx = canvas.getContext("2d");
+          ctx.scale(1.5, 1.5);
+         } else {
+          $(canvas).attr('width', 600);
+          $(canvas).attr('height', 432);
+         }
+        });
+        // console.log((screen.height*72)/100);
+        screenfull.request(canvas);
+       }
+      },false);
     </script>
    </div>
   </div>
